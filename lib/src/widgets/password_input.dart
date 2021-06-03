@@ -15,8 +15,12 @@ class _PasswordInputState extends State<PasswordInput> {
     return TextFormField(
       obscureText: obscureText,
       decoration: InputDecoration(
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.cyan.shade600,
+          ),
+        ),
         labelText: "Password",
-        hintText: "********",
         border: OutlineInputBorder(),
         prefixIcon: IconButton(
           icon: Icon(Icons.lock),

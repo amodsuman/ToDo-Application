@@ -1,17 +1,17 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:todo/src/screens/forgot_password.dart';
-import 'package:todo/src/screens/signup_screen.dart';
 import 'package:todo/src/widgets/backgroundImage.dart';
+import 'package:todo/src/screens/signup_screen.dart';
 import 'package:todo/src/widgets/email_input.dart';
 import 'package:todo/src/widgets/password_input.dart';
+import 'package:todo/src/screens/forgot_password.dart';
+import 'package:todo/src/screens/welcome_screen.dart';
 
 class LogInScreen extends StatelessWidget {
   const LogInScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    bool obscureText = true;
     return Container(
       color: Colors.white,
       child: Stack(
@@ -31,7 +31,7 @@ class LogInScreen extends StatelessWidget {
                     topRight: Radius.circular(50),
                   ),
                 ),
-                child: logInForm(),
+                child: logInForm(context),
               ),
             ), // body:
           ),
@@ -41,14 +41,14 @@ class LogInScreen extends StatelessWidget {
   }
 }
 
-Form logInForm() {
+Form logInForm(context) {
   return Form(
     child: Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _logInHeader(),
+        _logInHeader(context),
         SizedBox(
           height: 28,
         ),
@@ -60,64 +60,87 @@ Form logInForm() {
         SizedBox(
           height: 10,
         ),
-        _forgotPassword(),
+        _forgotPassword(context),
         SizedBox(
           height: 28,
         ),
-        _logInButton(),
+        _logInButton(context),
       ],
     ),
   );
 }
 
-Row _logInHeader() {
-  return Row(
+Column _logInHeader(context) {
+  return Column(
+    children: [
+      Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             "Log In",
             style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
           ),
-          MaterialButton(
-            shape: const StadiumBorder(),
-            textColor: Colors.white,
-            color: Colors.grey,
-            splashColor: Colors.grey.shade700,
-            disabledColor: Colors.grey,
-            disabledTextColor: Colors.white,
-            child: Text(
-              'Sign Up',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          SizedBox(
+            width: 90,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(10),
+                primary: Colors.grey,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+                  return SignUpScreen();
+                }));
+              },
+              child: Text(
+                "Sign Up",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
-            // onPressed: () {
-            //   Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-            //     return SignUpScreen();
-            //   }));
-            // },
-          )
+          ),
         ],
-      );
+      ),
+      SizedBox(
+        height: 20,
+      ),
+      Divider(
+        thickness: 1.2,
+        color: Colors.grey.shade500,
+      ),
+    ],
+  );
 }
 
-Row _forgotPassword() {
+Row _forgotPassword(context) {
   return Row(
     children: [
       RichText(
         text: TextSpan(
           children: [
             TextSpan(
-                text: 'Forgot your password ?',
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue,
-                ),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    // Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-                    //   return ForgotPassword();
-                    // }));
-                  }),
+              text: 'Forgot your password ?',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: Colors.cyan.shade600,
+              ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) {
+                        return ForgotPassword();
+                      },
+                    ),
+                  );
+                },
+            ),
           ],
         ),
       )
@@ -125,15 +148,19 @@ Row _forgotPassword() {
   );
 }
 
-Container _logInButton() {
+Container _logInButton(context) {
   return Container(
     width: double.infinity,
     child: ElevatedButton(
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.all(16),
-        primary: Colors.blue,
+        primary: Colors.cyan.shade600,
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+          return WelcomeScreen();
+        }));
+      },
       child: Text(
         "Log In",
         style: TextStyle(

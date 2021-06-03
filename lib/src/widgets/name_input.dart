@@ -6,10 +6,13 @@ class NameInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.cyan.shade600,
+          ),
+        ),
         labelText: "Full Name",
-        hintText: "Amod Suman",
         border: OutlineInputBorder(),
         prefixIcon: IconButton(
           icon: Icon(Icons.account_box),
